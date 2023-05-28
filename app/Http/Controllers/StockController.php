@@ -107,11 +107,6 @@ class StockController extends Controller
         return redirect()->route('stocks.show', $request->input('stock_id'));
     }
 
-    public function removeHistory($request)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */

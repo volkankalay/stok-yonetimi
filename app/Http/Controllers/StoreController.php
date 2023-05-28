@@ -12,36 +12,22 @@ use Illuminate\View\View;
 class StoreController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): View
-    {
-        return view('store.create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request): RedirectResponse
     {
-        $now = now()->toDateTimeString();
+        DB::transaction(function () use ($request) {
+            $now = now()->toDateTimeString();
 
-        $store = [
-            'name' => $request->input('name'),
-            'owner_id' => Auth::id(),
-            'created_at' => $now,
-            'updated_at' => $now,
-        ];
+            $store = [
+                'name' => $request->input('name'),
+                'owner_id' => Auth::id(),
+                'created_at' => $now,
+                'updated_at' => $now,
+            ];
 
-        DB::table('stores')->insert($store);
+            DB::table('stores')->insert($store);
+        });
 
         return redirect()->route('dashboard');
     }
@@ -69,14 +55,6 @@ class StoreController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
@@ -87,9 +65,8 @@ class StoreController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
-        //  DB::table('stores')->where('id',$id)->delete();
         $record = Store::find($id);
         $record->delete();
 

@@ -23,5 +23,7 @@ Route::group([], function () {
 
         Route::resource('stores', StoreController::class);
         Route::resource('stocks', StockController::class);
+        Route::post('stock_history', [StockController::class, 'addHistory'])->name('addHistory');
+        Route::post('stock_history/{id}', [StockController::class, 'removeHistory'])->name('removeHistory');
     });
 });

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -35,10 +36,32 @@ class Store extends Model
     ];
 
     /**
+     * @return void
+     */
+    protected static function boot(): void
+    {
+        static::deleted(function ($model) {
+            $model->stocks()->each(function ($item) {
+                $item->delete();
+            });
+        });
+
+        parent::boot();
+    }
+
+    /**
      * @return HasOne
      */
     public function owner(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'owner_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function stocks(): HasMany
+    {
+        return $this->hasMany(Stock::class, 'store_id', 'id');
     }
 }

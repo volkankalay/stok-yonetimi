@@ -46,8 +46,8 @@
                     @enderror
                 </div>
 
-                <div class="col">
-                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                <div class="col mt-2">
+                    <button type="submit" class="btn btn-primary mt-4">Kaydet</button>
                 </div>
 
             </div>
@@ -55,15 +55,15 @@
 
     </div>
 
-    <div class="row mt-2">
-        <table class="table table-hover">
-            <thead>
+    <div class="row mt-2 table-responsive">
+        <table class="table table-hover table-bordered table-striped">
+            <thead class="table-dark">
             <tr>
                 <th>#</th>
                 <th>Stok Adı</th>
                 <th>Stok Birimi</th>
                 <th>Stok Miktarı</th>
-                <th>İşlemler</th>
+                <th class="text-center">İşlemler</th>
             </tr>
             </thead>
             <tbody>
@@ -74,14 +74,22 @@
                     <td>#{{ $stock->id }}</td>
                     <td>{{ $stock->name }}</td>
                     <td>{{ $stock->unit }}</td>
-                    <td>{{ number_format($stock->stock_amount, 2, ',', '.') }}</td>
+                    <td class="@if($stock->stock_amount < 0) text-danger @else text-success @endif">{{ number_format($stock->stock_amount, 2, ',', '.') }}</td>
                     <td>
-                        <a href="#" class="btn btn-primary btn-sm">
-                            Görüntüle
-                        </a>
-                        <a href="#" class="btn btn-danger btn-sm">
-                            Sil
-                        </a>
+                        <form action="{{route('stocks.destroy', $stock->id)}}"
+                              class="d-flex justify-content-center"
+                              method="POST">
+                            <input type="hidden" name="store_id" value="{{$stock->store_id}}">
+                            @csrf
+                            @method('DELETE')
+                            <a href="{{ route('stocks.show', $stock->id) }}"
+                               class="btn btn-primary btn-sm col-sm-2 mx-1">
+                                Görüntüle
+                            </a>
+                            <button type="submit" class="btn btn-danger btn-sm col-sm-2 mx-1">
+                                Sil
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

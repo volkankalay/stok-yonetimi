@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -42,4 +44,34 @@ class Stock extends Model
         'name' => ['required'],
         'unit' => ['required'],
     ];
+
+    /**
+     * @return void
+     */
+    protected static function boot(): void
+    {
+        static::deleted(function ($model) {
+            $model->histories()->each(function ($item) {
+                $item->delete();
+            });
+        });
+
+        parent::boot();
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function histories(): HasMany
+    {
+        return $this->hasMany(StockHistory::class, 'stock_id', 'id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function store(): HasOne
+    {
+        return $this->hasOne(Store::class, 'id', 'store_id');
+    }
 }

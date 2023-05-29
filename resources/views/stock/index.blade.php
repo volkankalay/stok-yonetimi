@@ -3,10 +3,10 @@
 
 <div class="container text-center mt-5">
     <p class="lead">
-        <a href="{{route('stores.show', $store->id)}}" class="text-primary"> {{ $store->name }} </a>
-    <h1 class="h3 text-success">{{ $stock->name }}</h1>
-    <h2 class="h4 @if($stock->stock_amount < 0) text-danger @else text-success @endif">Güncel Stok
-        Miktarı: {{ number_format($stock->stock_amount, 2, ',', '.') }}</h2>
+        <a href="{{route('stores.show', $store->id)}}" class="btn btn-secondary"> {{ $store->name }} </a>
+    <h1 class="h5 text-success">{{ $stock->name }}</h1>
+    <h2 class="h5 @if($stock->stock_amount < 0) text-danger @else text-success @endif">Güncel
+        Stok: {{ number_format($stock->stock_amount, 2, ',', '.') . ' ' . $stock->unit}}</h2>
     </p>
 </div>
 

@@ -98,4 +98,13 @@ class AuthController extends Controller
 
         return view('auth.dashboard', compact('stores'));
     }
+
+    /**
+     * @param Request $request
+     * @return View
+     */
+    public function self(Request $request): View
+    {
+        return view('auth.self');
+    }
 }

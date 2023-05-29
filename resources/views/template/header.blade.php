@@ -53,10 +53,26 @@
         <ul class="navbar-nav ms-auto">
             @auth
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('dashboard') }}">Ana Sayfa</a>
+                    <a class="nav-link border border-secondary bg-primary bg-opacity-25" style="border-radius: 8px;"
+                       href="{{ route('dashboard') }}">Mağazalar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        |
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link border border-secondary bg-secondary bg-opacity-25" style="border-radius: 8px;"
+                       href="{{ route('self') }}">Kullanıcı</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        |
+                    </a>
                 </li>
                 <li class="nav-item bg-danger bg-opacity-10">
-                    <a class="nav-link" href="{{ route('logout') }}">Çıkış Yap</a>
+                    <a class="nav-link border border-secondary bg-danger bg-opacity-25" style="border-radius: 8px;"
+                       href="{{ route('logout') }}">Çıkış Yap</a>
                 </li>
             @else
                 <li class="nav-item fw-bold">

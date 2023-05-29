@@ -19,6 +19,7 @@ Route::group([], function () {
     /** Authenticated Routes */
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+        Route::get('/user', [AuthController::class, 'self'])->name('self');
         Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
         Route::resource('stores', StoreController::class);

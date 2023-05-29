@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StockCreateRequest;
+use App\Http\Requests\StockHistoryCancelRequest;
 use App\Http\Requests\StockHistoryCreateRequest;
 use App\Models\Stock;
+use App\Models\StockHistory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -102,6 +104,34 @@ class StockController extends Controller
             DB::table('stocks')
                 ->where('id', $history['stock_id'])
                 ->update(['stock_amount' => DB::raw('stock_amount + ' . ($history['change'] * $history['direction']))]);
+        });
+
+        return redirect()->route('stocks.show', $request->input('stock_id'));
+    }
+
+    /**
+     * @param int $id
+     * @param StockHistoryCancelRequest $request
+     * @return RedirectResponse
+     */
+    public function cancelHistory(int $id, StockHistoryCancelRequest $request): RedirectResponse
+    {
+        DB::transaction(function () use ($id, $request) {
+            /** @var StockHistory $history */
+            $history = DB::table('stock_histories')
+                ->selectRaw('*')
+                ->whereNull('deleted_at')
+                ->where('id', $id)
+                ->first();
+
+            $reverseAmount = ($history->direction * $history->change) * -1;
+
+            DB::table('stocks')
+                ->where('id', $request->input('stock_id'))
+                ->update(['stock_amount' => DB::raw('stock_amount + ' . $reverseAmount)]);
+
+            $sh = StockHistory::find($id);
+            $sh->delete();
         });
 
         return redirect()->route('stocks.show', $request->input('stock_id'));

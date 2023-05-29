@@ -24,5 +24,6 @@ Route::group([], function () {
         Route::resource('stores', StoreController::class);
         Route::resource('stocks', StockController::class);
         Route::post('stock_history', [StockController::class, 'addHistory'])->name('addHistory');
+        Route::delete('stock_history/{id}', [StockController::class, 'cancelHistory'])->name('cancelHistory');
     });
 });

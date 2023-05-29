@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property int $owner_id
+ * @property int $store_id
+ * @property int $stock_id
+ * @property int $direction
+ * @property float $change
+ */
 class StockHistory extends Model
 {
     use HasFactory, SoftDeletes;

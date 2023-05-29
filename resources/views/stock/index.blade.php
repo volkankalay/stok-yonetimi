@@ -10,6 +10,27 @@
     </p>
 </div>
 
+<div class="row">
+    <form action="{{ route('stocks.update', $stock->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="row">
+            <div class="form-group col">
+                <label for="name">Stok Adı</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ $stock->name }}">
+            </div>
+            <div class="form-group col">
+                <label for="unit">Stok Birimi</label>
+                <input type="text" class="form-control" id="unit" name="unit" value="{{ $stock->unit }}">
+            </div>
+
+            <div class="form-group col mt-4">
+                <button type="submit" class="btn btn-primary">Güncelle</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 <div class="row mt-5">
     <div class="h2">
         Stok Geçmişi

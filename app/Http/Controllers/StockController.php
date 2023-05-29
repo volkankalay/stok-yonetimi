@@ -140,9 +140,17 @@ class StockController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
-        //
+        DB::transaction(function () use ($request, $id) {
+            $now = now()->toDateTimeString();
+
+            DB::table('stocks')
+                ->where('id', $id)
+                ->update(['name' => $request->input('name'), 'unit' => $request->input('unit'), 'updated_at' => $now]);
+        });
+
+        return redirect()->route('stocks.show', $id);
     }
 
     /**

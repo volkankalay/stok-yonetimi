@@ -7,10 +7,13 @@
                 <div class="w-00">
                     <h2 class="text-black">Volkan Kalay</h2>
                     <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                        2145007009
+                    </p>
+                    <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                         Stok Yönetimi Uygulaması
+                    </p>
                     <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                         PHP - Oracle kullanılmıştır.
-                    </p>
                     </p>
                 </div>
             </div>

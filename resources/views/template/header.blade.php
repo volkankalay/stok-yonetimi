@@ -9,8 +9,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Ubuntu&display=swap" rel="stylesheet">
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css')}} ">
     <style>
@@ -24,6 +23,12 @@
 
         .navbar {
             justify-content: center;
+        }
+
+        label, button {
+            color: #0c63e4;
+            font-family: "Poppins", sans-serif !important;
+            font-weight: bolder;
         }
     </style>
 
@@ -55,7 +60,7 @@
                 </li>
             @else
                 <li class="nav-item fw-bold">
-                    <a class="nav-link" href="{{ route('login') }}">Giriş Yap</a>
+                    <a class="nav-link border border-secondary bg-secondary bg-opacity-25" style="border-radius: 8px;" href="{{ route('login') }}">Giriş Yap</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">
@@ -63,7 +68,7 @@
                     </a>
                 </li>
                 <li class="nav-item fw-bold">
-                    <a class="nav-link" href="{{ route('register') }}">Kayıt Ol</a>
+                    <a class="nav-link border border-secondary bg-success bg-opacity-25" style="border-radius: 8px;" href="{{ route('register') }}">Kayıt Ol</a>
                 </li>
             @endauth
         </ul>
